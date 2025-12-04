@@ -24,26 +24,26 @@ class CustomSurahBar extends StatelessWidget {
             height: 50,
             AssetsManager.quranBar,
           ),
-          // Positioned(
-          //   top: 10,
-          //   left: 25,
-          //   child: Column(
-          //     children: [
-          //       Text(
-          //         'الجزء',
-          //         style: GoogleFonts.amiri(
-          //           fontSize: 12,
-          //         ),
-          //       ),
-          //       Text(
-          //         quran.getJuzNumber(surahNumber, verseNumber).toString(),
-          //         style: GoogleFonts.amiri(
-          //           fontSize: 14,
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
+          Positioned(
+            top: 10,
+            left: 25,
+            child: Row(
+              children: [
+                Text(
+                  'الجزء',
+                  style: GoogleFonts.amiri(
+                    fontSize: 14,
+                  ),
+                ),
+                Text(
+                  quran.getJuzNumber(surahNumber, verseNumber).toString(),
+                  style: GoogleFonts.amiri(
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
           Text(
             quran.getSurahNameArabic(surahNumber),
             style: GoogleFonts.amiri(

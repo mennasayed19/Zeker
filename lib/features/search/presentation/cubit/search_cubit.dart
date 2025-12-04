@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:quran/quran.dart' as quran;
@@ -12,22 +14,36 @@ class SearchCubit extends Cubit<SearchState> {
 
   SearchModel? searchModel;
   bool isPlaying = false;
-
   void search({required List<String> words}) {
-    emit(SearchLodaing());
-
-    if (words.isEmpty) {
-      emit(SearchFailure(message: "No search terms provided"));
+    String query = words.first.trim();
+    log('Searching for: $query');
+    if (query.isEmpty) {
+      searchModel = SearchModel(occurences: 0, result: []);
+      emit(SearchLoaded(searchModel: searchModel!, isPlaying: false));
       return;
     }
 
-    Map<dynamic, dynamic>? result = quran.searchWords(words);
+    emit(SearchLodaing());
 
-    if (result.isEmpty) {
-      emit(SearchFailure(message: "No results found"));
+    List<Result> matches = [];
+
+    for (int s = 1; s <= 114; s++) {
+      int versesCount = quran.getVerseCount(s);
+
+      for (int v = 1; v <= versesCount; v++) {
+        String verseText = quran.getVerse(s, v);
+
+        if (_normalize(verseText).contains(_normalize(query))) {
+          matches.add(Result(surah: s, verse: v));
+        }
+      }
+    }
+
+    if (matches.isEmpty) {
+      emit(SearchFailure(message: "لا توجد نتائج"));
     } else {
-      searchModel = _mapResultToSearchModel(result);
-      emit(SearchLoaded(searchModel: searchModel!));
+      searchModel = SearchModel(occurences: matches.length, result: matches);
+      emit(SearchLoaded(searchModel: searchModel!, isPlaying: false));
     }
   }
 
@@ -61,4 +77,17 @@ class SearchCubit extends Cubit<SearchState> {
       }
     }
   }
+}
+
+String _normalize(String text) {
+  return text
+      .replaceAll(RegExp(r'[ًٌٍَُِّْـ]'), '') // Remove tashkeel
+      .replaceAll('أ', 'ا')
+      .replaceAll('إ', 'ا')
+      .replaceAll('آ', 'ا')
+      .replaceAll('ؤ', 'و')
+      .replaceAll('ئ', 'ي')
+      .replaceAll('ة', 'ه')
+      .replaceAll('ى', 'ي')
+      .trim();
 }

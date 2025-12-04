@@ -42,6 +42,18 @@ class CustomFloationButton extends StatelessWidget {
           },
         ),
         FloatingActionButton.small(
+          heroTag: null,
+          backgroundColor: AppColors.primaryColor,
+          child: Image.asset(
+            'assets/icons/night.png',
+            width: 26,
+            height: 26,
+          ),
+          onPressed: () {
+            GoRouter.of(context).push(AppRoutes.azkarScreen);
+          },
+        ),
+        FloatingActionButton.small(
           backgroundColor: AppColors.primaryColor,
           heroTag: null,
           child: const Icon(

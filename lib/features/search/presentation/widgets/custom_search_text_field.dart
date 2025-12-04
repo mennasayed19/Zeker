@@ -13,11 +13,11 @@ class CustomSearchTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      onSubmitted: (value) {
+      onChanged: (value) {
         if (value.isNotEmpty) {
           List<String> words = [];
           words.add(value.trim());
-          BlocProvider.of<SearchCubit>(context).search(words: words);
+          BlocProvider.of<SearchCubit>(context).search(words: [value]);
         } else {
           log("Input is empty");
         }

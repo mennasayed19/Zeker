@@ -62,13 +62,13 @@ class CustomTimeBar extends StatelessWidget {
                       color: AppColors.colorWhite,
                     ),
                   ),
-                  // SizedBox(width: 10),
-                  // Text(
-                  //   '4:17 AM',
-                  //   style: StyleManger.textStyleBold20.copyWith(
-                  //     color: AppColors.colorWhite,
-                  //   ),
-                  // ),
+                  SizedBox(width: 10),
+                  Text(
+                    '4:17 AM',
+                    style: StyleManger.textStyleBold20.copyWith(
+                      color: AppColors.colorWhite,
+                    ),
+                  ),
                 ],
               ),
               Text(
@@ -91,14 +91,16 @@ class CustomTimeBar extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // IconButton(
-                    //   onPressed: () {},
-                    //   icon: Icon(
-                    //     Icons.arrow_back_ios_rounded,
-                    //     size: 20,
-                    //   ),
-                    // ),
-                    // SizedBox(width: 47),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_ios_rounded,
+                        size: 20,
+                      ),
+                    ),
+                    SizedBox(width: 47),
                     Text(
                       state.salahTimeDate.data.date!.readable.toString(),
                       style: StyleManger.textStyleBold16,

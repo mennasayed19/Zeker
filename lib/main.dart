@@ -1,16 +1,23 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zeker_app/config/routes/app_routes.dart';
 import 'package:zeker_app/config/themes/light_theme.dart';
+import 'package:zeker_app/core/notification_service/notification_service.dart';
 import 'package:zeker_app/core/utils/service_locator.dart';
 import 'package:zeker_app/features/home/data/repositories/home_repo_impl.dart';
 import 'package:zeker_app/features/home/presentation/cubits/fetch_salah_time_date_cubit/fetch_salah_time_date_cubit.dart';
 import 'package:zeker_app/features/home/presentation/cubits/home_cubit/home_cubit.dart';
 // import 'package:quran/quran.dart' as quran;
 
-void main() {
+void main() async {
   setupServiceLocator();
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService.init();
+  await NotificationService().requestExactAlarmPermission(); // مهم جدًا
+  await NotificationService.scheduleDailyAzkar();
+  log('Initialized Notification Service and Scheduled Daily Azkar');
   // log(quran.getPageData(5).toString());
   runApp(const ZekerApp());
 }

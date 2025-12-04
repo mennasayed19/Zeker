@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zeker_app/core/utils/service_locator.dart';
+import 'package:zeker_app/features/azkar/presentation/views/screens/azkar.dart';
 import 'package:zeker_app/features/home/presentation/views/home_view.dart';
 import 'package:zeker_app/features/radio/data/repositories/radio_repo_impl.dart';
 import 'package:zeker_app/features/radio/presentation/cubit/fetch_radio_data/fetch_radio_data_cubit.dart';
@@ -21,6 +22,7 @@ abstract class AppRoutes {
   static const searchView = '/searchView';
   static const radioView = '/radioView';
   static const radioScreen = '/radioScreen';
+  static const azkarScreen = '/azkarScreen';
 
   static final router = GoRouter(
     routes: [
@@ -31,6 +33,10 @@ abstract class AppRoutes {
       GoRoute(
         path: homeView,
         builder: (context, state) => const HomeView(),
+      ),
+      GoRoute(
+        path: azkarScreen,
+        builder: (context, state) => const AzkarScreen(),
       ),
       GoRoute(
         path: timeView,
